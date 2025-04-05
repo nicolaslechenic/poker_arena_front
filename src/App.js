@@ -1,19 +1,26 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import TableList from './components/TableList';
+import TablesPage from './pages/TablesPage';
+import PlayersPage from './pages/PlayersPage';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <main className="App-main">
-        <TableList />
-      </main>
-      <footer className="App-footer">
-        <p>&copy; {new Date().getFullYear()} Poker Arena</p>
-      </footer>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main className="App-main">
+          <Routes>
+            <Route path="/" element={<TablesPage />} />
+            <Route path="/players" element={<PlayersPage />} />
+          </Routes>
+        </main>
+        <footer className="App-footer">
+          <p>&copy; {new Date().getFullYear()} Poker Arena</p>
+        </footer>
+      </div>
+    </Router>
   );
 }
 
