@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './TableList.css';
 
 const TableList = () => {
@@ -50,12 +51,12 @@ const TableList = () => {
             <div key={table.name} className="table-card">
               <h3>{table.name}</h3>
               <div className="table-details">
-                <p>Players: {table.players ? table.players.length : 0}</p>
+                <p>Players: {table.max_players - table.available_players} / {table.max_players}</p>
                 <p>Status: {table.status || 'Waiting'}</p>
                 <p>Blinds: {table.small_blind}/{table.big_blind}</p>
               </div>
               <div className="table-actions">
-                <button className="spectate-button">Spectate</button>
+                <Link to={`/spectate/${table.id || table.name}`} className="spectate-button">Spectate</Link>
               </div>
             </div>
           ))}

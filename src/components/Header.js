@@ -25,6 +25,11 @@ const Header = () => {
                 Players
               </Link>
             </li>
+            <li>
+              <Link to="/spectate" className={path.startsWith('/spectate') ? 'active' : ''}>
+                Spectate
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
