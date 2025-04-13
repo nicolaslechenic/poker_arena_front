@@ -1,7 +1,7 @@
 :root {
-  --primary-color: #0A5F55;      /* Dark green from the poker chip */
-  --secondary-color: #7FDBDA;    /* Light blue/teal from the poker chip */
-  --accent-color: #FF6B8B;       /* Pink/magenta from the poker chip */
+  --primary-color: #0A5F55;
+  --secondary-color: #7FDBDA;
+  --accent-color: #FF6B8B;
   --white: #FFFFFF;
   --light-bg: #F0F7F6;
   --dark-text: #2C3E50;

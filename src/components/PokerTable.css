@@ -1,8 +1,7 @@
-/* Poker Table Styles */
+
 .poker-table-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .table-info {
@@ -49,29 +48,45 @@
   display: inline-block;
   min-width: 300px;
 }
-
-/* Poker table */
-.poker-table {
-  position: relative;
-  width: 800px;
-  height: 400px;
-  margin: 0 auto;
-  background-color: var(--primary-color);
-  border-radius: 200px;
-  box-shadow: 0 0 0 15px var(--secondary-color), inset 0 0 50px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+.action-log.hidden {
+  display: none;
 }
 
-/* Community cards */
+.poker-table-wrapper {
+  position: relative;
+  width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.poker-table-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.seat-marker {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1;
+}
+
 .community-cards {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .no-cards {
@@ -79,21 +94,23 @@
   font-style: italic;
 }
 
-/* Player positions */
 .player-positions {
   width: 100%;
   height: 100%;
   position: relative;
+  z-index: 5;
 }
 
 .player-position {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
-  padding: 10px;
-  width: 180px;
+  padding: 8px;
+  width: 140px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  font-size: 0.9rem;
+  z-index: 10;
 }
 
 .player-position.active {
@@ -104,46 +121,45 @@
   opacity: 0.6;
 }
 
-/* Position specific locations */
-.player-position.position-0 {
-  bottom: 10px;
-  left: 10px;
+.player-position.position-1 {
+  bottom: 150px;
+  right: 600;
 }
 
-.player-position.position-1 {
-  bottom: 10px;
-  right: 10px;
+.player-position.position-2 {
+  bottom: 150px;
+  right: 0px;
 }
 
 .player-info {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .player-name {
   font-weight: bold;
   color: var(--primary-color);
-  margin-bottom: 5px;
+  margin-bottom: 2px;
+  font-size: 0.85rem;
 }
 
 .player-chips {
   color: #333;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .player-bet {
   background-color: var(--accent-color);
   color: white;
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-size: 0.8rem;
+  padding: 1px 4px;
+  border-radius: 8px;
+  font-size: 0.75rem;
   display: inline-block;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
-/* Cards */
 .player-cards {
   display: flex;
-  gap: 5px;
+  gap: 3px;
 }
 
 .card-wrapper {
@@ -151,20 +167,20 @@
 }
 
 .card {
-  width: 40px;
-  height: 60px;
+  width: 30px;
+  height: 45px;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 .card.card-back {
@@ -176,7 +192,6 @@
   background-color: var(--primary-color);
 }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .poker-table {
     width: 100%;

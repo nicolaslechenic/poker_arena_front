@@ -4,8 +4,8 @@ import './PokerTable.css';
 const PokerTable = ({ tableId }) => {
   const [gameState, setGameState] = useState({
     players: [
-      { position: 0, name: 'Waiting...', stack: 0, bet: 0, cards: [], isActive: true },
-      { position: 1, name: 'Waiting...', stack: 0, bet: 0, cards: [], isActive: true }
+      { position: 1, name: 'Waiting...', stack: 0, bet: 0, cards: [], isActive: true },
+      { position: 2, name: 'Waiting...', stack: 0, bet: 0, cards: [], isActive: true },
     ],
     communityCards: [],
     pot: 0,
@@ -13,167 +13,13 @@ const PokerTable = ({ tableId }) => {
     round: 'waiting'
   });
 
-  const [gameData, setGameData] = useState(null);
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  // Fetch game data
   useEffect(() => {
     const fetchGameData = async () => {
       try {
-        // This will be replace by fetch from API
-        // For now, we'll use the example data structure
-        const exampleData = {
-          "sets": [
-            {
-              "positions": {
-                "0": "Vilain",
-                "1": "Hero"
-              },
-              "games": [
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 99.5,
-                      "action": "bet",
-                      "value": 0.5, 
-                      "cards": [],
-                      "pot": 0.5
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 99, 
-                      "action": "bet",
-                      "value": 1, 
-                      "cards": [],
-                      "pot": 1.5
-                    }
-                  ],
-                  "board": [],
-                  "round": "blind"
-                },
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 99,
-                      "action": "call",
-                      "value": 0.5, 
-                      "cards": ["xX", "xX"],
-                      "pot": 2
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 99, 
-                      "action": "check",
-                      "value": 0, 
-                      "cards": ["xX", "xX"],
-                      "pot": 2
-                    }
-                  ],
-                  "board": [],
-                  "round": "preflop"
-                },
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 97.5,
-                      "action": "bet",
-                      "value": 1.5, 
-                      "cards": ["xX", "xX"],
-                      "pot": 3.5
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 97.5, 
-                      "action": "call",
-                      "value": 1.5, 
-                      "cards": ["xX", "xX"],
-                      "pot": 5
-                    }
-                  ],
-                  "board": ["♥A", "♦K", "♣7"],
-                  "round": "flop"
-                },
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 94,
-                      "action": "bet",
-                      "value": 3.5, 
-                      "cards": ["xX", "xX"],
-                      "pot": 8.5
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 94, 
-                      "action": "call",
-                      "value": 3.5, 
-                      "cards": ["xX", "xX"],
-                      "pot": 12
-                    }
-                  ],
-                  "board": ["♥A", "♦K", "♣7", "♦Q"],
-                  "round": "turn"
-                },
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 84,
-                      "action": "bet",
-                      "value": 10, 
-                      "cards": ["xX", "xX"],
-                      "pot": 22
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 84, 
-                      "action": "call",
-                      "value": 10, 
-                      "cards": ["xX", "xX"],
-                      "pot": 32
-                    }
-                  ],
-                  "board": ["♥A", "♦K", "♣7", "♦Q", "♦10"],
-                  "round": "river"
-                },
-                {
-                  "actions": [
-                    { 
-                      "pseudo": "Vilain", 
-                      "stack": 84,
-                      "action": "showdown",
-                      "value": 0, 
-                      "cards": ["♥J", "♦8"],
-                      "pot": 32
-                    },
-                    { 
-                      "pseudo": "Hero", 
-                      "stack": 84, 
-                      "action": "showdown",
-                      "value": 0, 
-                      "cards": ["♦7", "♦9"],
-                      "pot": 32
-                    }
-                  ],
-                  "board": ["♥A", "♦K", "♣7", "♦Q", "♦10"],
-                  "round": "showdown"
-                }
-              ]
-            }
-          ]
-        };
-        
-        setGameData(exampleData);
         setLoading(false);
-        
-        if (exampleData.sets && exampleData.sets.length > 0) {
-          simulateGameProgress(exampleData.sets[0]);
-        }
       } catch (err) {
         console.error('Error fetching game data:', err);
         setLoading(false);
@@ -216,7 +62,6 @@ const PokerTable = ({ tableId }) => {
         currentIndex++;
       } else {
         clearInterval(interval);
-        // Reset after a delay
         setTimeout(() => {
           setCurrentGameIndex(0);
           simulateGameProgress(gameSet);
@@ -242,15 +87,34 @@ const PokerTable = ({ tableId }) => {
   return (
     <div className="poker-table-container">
       <div className="table-info">
-        <h2>Table {tableId || 'Demo'}</h2>
         <div className="game-status">
           <span className="round-label">{gameState.round.toUpperCase()}</span>
           <span className="pot-amount">Pot: ${gameState.pot}</span>
         </div>
-        <div className="action-log">{gameState.currentAction}</div>
+        <div className={`action-log ${gameState.currentAction ? "" : "hidden"}`}>{gameState.currentAction}</div>
       </div>
 
-      <div className="poker-table">
+      <div className="poker-table-wrapper">
+        <svg className="poker-table-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="500" cy="250" rx="450" ry="225" fill="#0a7e6e" stroke="#261800" strokeWidth="15" />
+          
+          <ellipse cx="500" cy="250" rx="315" ry="157.5" fill="url(#darkCenter)" />
+          
+          <g className="seat-positions">
+            <rect x="910" y="232" width="40" height="40" rx="20" ry="20" className="seat-marker"  />
+            <rect x="50" y="232" width="40" height="40" rx="20" ry="20" className="seat-marker" />
+          </g>
+          
+          <defs>
+            <radialGradient id="darkCenter" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+              <stop offset="0%" stopColor="#064e45" />
+              <stop offset="40%" stopColor="#076056" />
+              <stop offset="70%" stopColor="#0a7e6e" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#0a7e6e" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+        
         <div className="community-cards">
           {gameState.communityCards.length > 0 ? (
             gameState.communityCards.map((card, index) => (

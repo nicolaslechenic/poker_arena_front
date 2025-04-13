@@ -6,7 +6,7 @@ This is a React frontend for the Poker Arena application. It allows users to vie
 
 - Node.js (v14 or higher)
 - npm (v6 or higher)
-- Poker Arena backend running on http://localhost:3000
+- Poker Arena backend running on http://localhost:3042
 
 ## Getting Started
 
